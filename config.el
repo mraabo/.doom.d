@@ -35,7 +35,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-material)
 
 ;; Open Doom in fullscreen
 (add-hook 'window-setup-hook #'toggle-frame-maximized)
@@ -66,6 +66,11 @@
         (setq org-download-link-format-function #'org-download-link-format-function-default))
 
 (after! org
+        ;; Enable haskell execution in source blocks
+        (require 'haskell)
+        ;; Set every source block to display results in raw mode and not as tables
+        (setq org-babel-default-header-args
+                (cons '(:results . "raw") (assq-delete-all :results org-babel-default-header-args)))
         ;; Automatically breaks lines
         (add-hook 'org-mode-hook 'turn-on-auto-fill)
         ;; Resize Org headings
