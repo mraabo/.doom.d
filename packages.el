@@ -53,3 +53,5 @@
 (package! org-superstar)
 (package! org-download)
 (package! svg-tag-mode)
+(package! reformatter)
+(package! ormolu)

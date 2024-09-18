@@ -31,7 +31,7 @@
 (setq doom-font (font-spec :family "Iosevka" :size 15 :weight 'regular
                            :width 'semi-expanded)
       doom-variable-pitch-font (font-spec :family "Iosevka Etoile"
-                                :size 18 :width 'regular :width 'expanded))
+                                          :size 18 :width 'regular :width 'expanded))
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
@@ -45,206 +45,221 @@
 (setq display-line-numbers-type t)
 
 (after! latex
-        ;; Automatically breaks lines
-        (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill))
+  ;; Automatically breaks lines
+  (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill))
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
 (after! org-download
-        ;; Setting the default way of storing images to be linked from a directory.
-        (setq-default org-download-method 'directory)
-        ;; Setting default directory to store images related to the use of org-download.
-        (setq-default org-download-image-dir "~/org/roam/cs_notes/Assets")
-        ;; Set all images to have width 600
-        (setq org-download-image-org-width 600)
-        ;; Set links to be correctly formatted with the approach of storing in directory.
-        (setq org-download-link-format "[[file:%s]]\n"
-                org-download-abbreviate-filename-function #'file-relative-name)
-        ;; Ensure images are inserted instead of their links when exporting to pdf (I think).
-        (setq org-download-link-format-function #'org-download-link-format-function-default))
+  ;; Setting the default way of storing images to be linked from a directory.
+  (setq-default org-download-method 'directory)
+  ;; Setting default directory to store images related to the use of org-download.
+  (setq-default org-download-image-dir "~/org/roam/cs_notes/Assets")
+  ;; Set all images to have width 600
+  (setq org-download-image-org-width 600)
+  ;; Set links to be correctly formatted with the approach of storing in directory.
+  (setq org-download-link-format "[[file:%s]]\n"
+        org-download-abbreviate-filename-function #'file-relative-name)
+  ;; Ensure images are inserted instead of their links when exporting to pdf (I think).
+  (setq org-download-link-format-function #'org-download-link-format-function-default))
 
 (after! org
-        ;; Enable haskell execution in source blocks
-        (require 'haskell)
-        ;; Set every source block to display results in raw mode and not as tables
-        (setq org-babel-default-header-args
-                (cons '(:results . "raw") (assq-delete-all :results org-babel-default-header-args)))
-        ;; Automatically breaks lines
-        (add-hook 'org-mode-hook 'turn-on-auto-fill)
-        ;; Resize Org headings
-        (dolist (face '((org-level-1 . 1.35)
-                        (org-level-2 . 1.3)
-                        (org-level-3 . 1.2)
-                        (org-level-4 . 1.1)
-                        (org-level-5 . 1.1)
-                        (org-level-6 . 1.1)
-                        (org-level-7 . 1.1)
-                        (org-level-8 . 1.1)))
-        (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
+  ;; Set every source block to display results in raw format and not as tables
+  (setq org-babel-default-header-args
+        (cons '(:results . "raw") (assq-delete-all :results org-babel-default-header-args)))
+  ;; Automatically breaks lines
+  (add-hook 'org-mode-hook 'turn-on-auto-fill)
+  ;; Resize Org headings
+  (dolist (face '((org-level-1 . 1.35)
+                  (org-level-2 . 1.3)
+                  (org-level-3 . 1.2)
+                  (org-level-4 . 1.1)
+                  (org-level-5 . 1.1)
+                  (org-level-6 . 1.1)
+                  (org-level-7 . 1.1)
+                  (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
 
-        ;; Make the document title a bit bigger
-        (set-face-attribute 'org-document-title nil  :weight
-        'bold :height 1.8)
+  ;; Make the document title a bit bigger
+  (set-face-attribute 'org-document-title nil  :weight
+                      'bold :height 1.8)
 
-        ;; Hide leading stars and display entities like
-        ;; \alpha as the actual greek letter.
-        (setq org-hide-leading-stars t
-                org-pretty-entities t
+  ;; Hide leading stars and display entities like
+  ;; \alpha as the actual greek letter.
+  (setq org-hide-leading-stars t
+        org-pretty-entities t
 
-                ;; Make src-code be displayed using the corresponding major mode in Org-mode
-                ;; and let tab act in a source code block as it would when normally writing
-                ;; that language.
-                org-src-fontify-natively t
-                org-src-tab-acts-natively t
-                org-edit-src-content-indentation 0
+        ;; Make src-code be displayed using the corresponding major mode in Org-mode
+        ;; and let tab act in a source code block as it would when normally writing
+        ;; that language.
+        org-src-fontify-natively t
+        org-src-tab-acts-natively t
+        org-edit-src-content-indentation 0
         )
 
-        ;; Hide emphasis markers (e.g. *...* for bold) but show when hovering over
-        ;; for easy editing.
-        (use-package org-appear
-                :commands (org-appear-mode)
-                :hook     (org-mode . org-appear-mode)
-                :config
-                (setq org-hide-emphasis-markers t)  ; Must be activated for org-appear to work
-                (setq org-appear-autoemphasis   t   ; Show bold, italics, verbatim, etc.
-                        org-appear-autolinks      t   ; Show links
-                        org-appear-autosubmarkers t)) ; Show sub- and superscripts
+  ;; Hide emphasis markers (e.g. *...* for bold) but show when hovering over
+  ;; for easy editing.
+  (use-package org-appear
+    :commands (org-appear-mode)
+    :hook     (org-mode . org-appear-mode)
+    :config
+    (setq org-hide-emphasis-markers t)  ; Must be activated for org-appear to work
+    (setq org-appear-autoemphasis   t   ; Show bold, italics, verbatim, etc.
+          org-appear-autolinks      t   ; Show links
+          org-appear-autosubmarkers t)) ; Show sub- and superscripts
 
-        ;; Styling of UI elements like bullets, TODOs and checkboxes.
-        (use-package org-superstar
-                :config
-                (setq org-superstar-leading-bullet " ")
-                (setq org-superstar-headline-bullets-list '("◉" "○" "⚬" "◈" "◇"))
-                (setq org-superstar-special-todo-items t)
-                ;; Makes TODO header bullets into boxes
-                (setq org-superstar-todo-bullet-alist '(("TODO"  . 9744)
-                                                        ("WAIT"  . 9744)
-                                                        ("READ"  . 9744)
-                                                        ("PROG"  . 9744)
-                                                        ("DONE"  . 9745)))
-                :hook (org-mode . org-superstar-mode))
+  ;; Styling of UI elements like bullets, TODOs and checkboxes.
+  (use-package org-superstar
+    :config
+    (setq org-superstar-leading-bullet " ")
+    (setq org-superstar-headline-bullets-list '("◉" "○" "⚬" "◈" "◇"))
+    (setq org-superstar-special-todo-items t)
+    ;; Makes TODO header bullets into boxes
+    (setq org-superstar-todo-bullet-alist '(("TODO"  . 9744)
+                                            ("WAIT"  . 9744)
+                                            ("READ"  . 9744)
+                                            ("PROG"  . 9744)
+                                            ("DONE"  . 9745)))
+    :hook (org-mode . org-superstar-mode))
 
-        ;; SVG styling of elements like progressbar, tags, priorities, and dates.
-        (use-package svg-tag-mode
-                :config
-                (defconst date-re "[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}")
-                (defconst time-re "[0-9]\\{2\\}:[0-9]\\{2\\}")
-                (defconst day-re "[A-Za-z]\\{3\\}")
-                (defconst day-time-re (format "\\(%s\\)? ?\\(%s\\)?" day-re time-re))
+  ;; SVG styling of elements like progressbar, tags, priorities, and dates.
+  (use-package svg-tag-mode
+    :config
+    (defconst date-re "[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}")
+    (defconst time-re "[0-9]\\{2\\}:[0-9]\\{2\\}")
+    (defconst day-re "[A-Za-z]\\{3\\}")
+    (defconst day-time-re (format "\\(%s\\)? ?\\(%s\\)?" day-re time-re))
 
-                (defun svg-progress-percent (value)
-                        (svg-image (svg-lib-concat
-                                (svg-lib-progress-bar (/ (string-to-number value) 100.0)
+    (defun svg-progress-percent (value)
+      (svg-image (svg-lib-concat
+                  (svg-lib-progress-bar (/ (string-to-number value) 100.0)
                                         nil :margin 0 :stroke 2 :radius 3 :padding 2 :width 11)
-                                (svg-lib-tag (concat value "%")
-                                        nil :stroke 0 :margin 0)) :ascent 'center))
+                  (svg-lib-tag (concat value "%")
+                               nil :stroke 0 :margin 0)) :ascent 'center))
 
-                (defun svg-progress-count (value)
-                        (let* ((seq (mapcar #'string-to-number (split-string value "/")))
-                                (count (float (car seq)))
-                                (total (float (cadr seq))))
-                        (svg-image (svg-lib-concat
-                                (svg-lib-progress-bar (/ count total) nil
-                                        :margin 0 :stroke 2 :radius 3 :padding 2 :width 11)
-                                (svg-lib-tag value nil
-                                        :stroke 0 :margin 0)) :ascent 'center)))
-                (setq svg-tag-tags
-                `(
-                        ;; Task priority
-                        ("\\[#[A-Z]\\]" . ( (lambda (tag)
-                                        (svg-tag-make tag :face 'org-priority
-                                                        :beg 2 :end -1 :margin 0))))
+    (defun svg-progress-count (value)
+      (let* ((seq (mapcar #'string-to-number (split-string value "/")))
+             (count (float (car seq)))
+             (total (float (cadr seq))))
+        (svg-image (svg-lib-concat
+                    (svg-lib-progress-bar (/ count total) nil
+                                          :margin 0 :stroke 2 :radius 3 :padding 2 :width 11)
+                    (svg-lib-tag value nil
+                                 :stroke 0 :margin 0)) :ascent 'center)))
+    (setq svg-tag-tags
+          `(
+            ;; Task priority
+            ("\\[#[A-Z]\\]" . ( (lambda (tag)
+                                  (svg-tag-make tag :face 'org-priority
+                                                :beg 2 :end -1 :margin 0))))
 
-                        ;; Progress
-                        ("\\(\\[[0-9]\\{1,3\\}%\\]\\)" . ((lambda (tag)
-                        (svg-progress-percent (substring tag 1 -2)))))
-                        ("\\(\\[[0-9]+/[0-9]+\\]\\)" . ((lambda (tag)
-                        (svg-progress-count (substring tag 1 -1)))))
+            ;; Progress
+            ("\\(\\[[0-9]\\{1,3\\}%\\]\\)" . ((lambda (tag)
+                                                (svg-progress-percent (substring tag 1 -2)))))
+            ("\\(\\[[0-9]+/[0-9]+\\]\\)" . ((lambda (tag)
+                                              (svg-progress-count (substring tag 1 -1)))))
 
-                        ;; Citation of the form [cite:@Knuth:1984]
-                        ("\\(\\[cite:@[A-Za-z]+:\\)" . ((lambda (tag)
-                                                        (svg-tag-make tag
-                                                                        :inverse t
-                                                                        :beg 7 :end -1
-                                                                        :crop-right t))))
-                        ("\\[cite:@[A-Za-z]+:\\([0-9]+\\]\\)" . ((lambda (tag)
-                                                                (svg-tag-make tag
-                                                                        :end -1
-                                                                        :crop-left t))))
+            ;; Citation of the form [cite:@Knuth:1984]
+            ("\\(\\[cite:@[A-Za-z]+:\\)" . ((lambda (tag)
+                                              (svg-tag-make tag
+                                                            :inverse t
+                                                            :beg 7 :end -1
+                                                            :crop-right t))))
+            ("\\[cite:@[A-Za-z]+:\\([0-9]+\\]\\)" . ((lambda (tag)
+                                                       (svg-tag-make tag
+                                                                     :end -1
+                                                                     :crop-left t))))
 
 
-                        ;; Active date (with or without day name, with or without time)
-                        (,(format "\\(<%s>\\)" date-re) .
-                        ((lambda (tag)
-                        (svg-tag-make tag :beg 1 :end -1 :margin 0))))
-                        (,(format "\\(<%s \\)%s>" date-re day-time-re) .
-                        ((lambda (tag)
-                        (svg-tag-make tag :beg 1 :inverse nil :crop-right t :margin 0))))
-                        (,(format "<%s \\(%s>\\)" date-re day-time-re) .
-                        ((lambda (tag)
-                        (svg-tag-make tag :end -1 :inverse t :crop-left t :margin 0))))
+            ;; Active date (with or without day name, with or without time)
+            (,(format "\\(<%s>\\)" date-re) .
+             ((lambda (tag)
+                (svg-tag-make tag :beg 1 :end -1 :margin 0))))
+            (,(format "\\(<%s \\)%s>" date-re day-time-re) .
+             ((lambda (tag)
+                (svg-tag-make tag :beg 1 :inverse nil :crop-right t :margin 0))))
+            (,(format "<%s \\(%s>\\)" date-re day-time-re) .
+             ((lambda (tag)
+                (svg-tag-make tag :end -1 :inverse t :crop-left t :margin 0))))
 
-                        ;; Inactive date  (with or without day name, with or without time)
-                        (,(format "\\(\\[%s\\]\\)" date-re) .
-                        ((lambda (tag)
-                        (svg-tag-make tag :beg 1 :end -1 :margin 0 :face 'org-date))))
-                        (,(format "\\(\\[%s \\)%s\\]" date-re day-time-re) .
-                        ((lambda (tag)
-                        (svg-tag-make tag :beg 1 :inverse nil
-                                                                :crop-right t :margin 0 :face 'org-date))))
-                        (,(format "\\[%s \\(%s\\]\\)" date-re day-time-re) .
-                        ((lambda (tag)
-                        (svg-tag-make tag :end -1 :inverse t
-                                                                :crop-left t :margin 0 :face 'org-date)))))))
+            ;; Inactive date  (with or without day name, with or without time)
+            (,(format "\\(\\[%s\\]\\)" date-re) .
+             ((lambda (tag)
+                (svg-tag-make tag :beg 1 :end -1 :margin 0 :face 'org-date))))
+            (,(format "\\(\\[%s \\)%s\\]" date-re day-time-re) .
+             ((lambda (tag)
+                (svg-tag-make tag :beg 1 :inverse nil
+                              :crop-right t :margin 0 :face 'org-date))))
+            (,(format "\\[%s \\(%s\\]\\)" date-re day-time-re) .
+             ((lambda (tag)
+                (svg-tag-make tag :end -1 :inverse t
+                              :crop-left t :margin 0 :face 'org-date)))))))
 
-                (add-hook 'org-mode-hook 'svg-tag-mode)
+  (add-hook 'org-mode-hook 'svg-tag-mode)
 
-        ;; Prettiying symbols and source-blocks.
-        (defun my/prettify-symbols-setup ()
-                ;; Checkboxes
-                (push '("[ ]" . "") prettify-symbols-alist)
-                (push '("[X]" . "") prettify-symbols-alist)
-                (push '("[-]" . "" ) prettify-symbols-alist)
+  ;; Prettiying symbols and source-blocks.
+  (defun my/prettify-symbols-setup ()
+    ;; Checkboxes
+    (push '("[ ]" . "") prettify-symbols-alist)
+    (push '("[X]" . "") prettify-symbols-alist)
+    (push '("[-]" . "" ) prettify-symbols-alist)
 
-                ;; org-abel
-                (push '("#+BEGIN_SRC" . ?≫) prettify-symbols-alist)
-                (push '("#+END_SRC" . ?≫) prettify-symbols-alist)
-                (push '("#+begin_src" . ?≫) prettify-symbols-alist)
-                (push '("#+end_src" . ?≫) prettify-symbols-alist)
+    ;; org-abel
+    (push '("#+BEGIN_SRC" . ?≫) prettify-symbols-alist)
+    (push '("#+END_SRC" . ?≫) prettify-symbols-alist)
+    (push '("#+begin_src" . ?≫) prettify-symbols-alist)
+    (push '("#+end_src" . ?≫) prettify-symbols-alist)
 
-                (push '("#+BEGIN_QUOTE" . ?❝) prettify-symbols-alist)
-                (push '("#+END_QUOTE" . ?❞) prettify-symbols-alist)
+    (push '("#+BEGIN_QUOTE" . ?❝) prettify-symbols-alist)
+    (push '("#+END_QUOTE" . ?❞) prettify-symbols-alist)
 
-                ;; Drawers
-                (push '(":PROPERTIES:" . "") prettify-symbols-alist)
+    ;; Drawers
+    (push '(":PROPERTIES:" . "") prettify-symbols-alist)
 
-                ;; Tags
-                (push '(":projects:" . "") prettify-symbols-alist)
-                (push '(":work:"     . "") prettify-symbols-alist)
-                (push '(":inbox:"    . "") prettify-symbols-alist)
-                (push '(":task:"     . "") prettify-symbols-alist)
-                (push '(":thesis:"   . "") prettify-symbols-alist)
-                (push '(":uio:"      . "") prettify-symbols-alist)
-                (push '(":emacs:"    . "") prettify-symbols-alist)
-                (push '(":learn:"    . "") prettify-symbols-alist)
-                (push '(":code:"     . "") prettify-symbols-alist)
+    ;; Tags
+    (push '(":projects:" . "") prettify-symbols-alist)
+    (push '(":work:"     . "") prettify-symbols-alist)
+    (push '(":inbox:"    . "") prettify-symbols-alist)
+    (push '(":task:"     . "") prettify-symbols-alist)
+    (push '(":thesis:"   . "") prettify-symbols-alist)
+    (push '(":uio:"      . "") prettify-symbols-alist)
+    (push '(":emacs:"    . "") prettify-symbols-alist)
+    (push '(":learn:"    . "") prettify-symbols-alist)
+    (push '(":code:"     . "") prettify-symbols-alist)
 
-                (prettify-symbols-mode))
+    (prettify-symbols-mode))
 
-        (add-hook 'org-mode-hook        #'my/prettify-symbols-setup)
-        (add-hook 'org-agenda-mode-hook #'my/prettify-symbols-setup)
+  (add-hook 'org-mode-hook        #'my/prettify-symbols-setup)
+  (add-hook 'org-agenda-mode-hook #'my/prettify-symbols-setup)
 
-        ;; Change format of org-journal entries.
-        (setq org-journal-date-prefix "#+TITLE: "
-              org-journal-time-prefix "* "
-              org-journal-date-format "%a, %Y-%m-%d"
-              org-journal-file-format "%Y-%m-%d.org")
+  ;; Change format of org-journal entries.
+  (setq org-journal-date-prefix "#+TITLE: "
+        org-journal-time-prefix "* "
+        org-journal-date-format "%a, %Y-%m-%d"
+        org-journal-file-format "%Y-%m-%d.org")
 
   )
 
+(after! haskell
+  ;; Display errors in the interactive buffer and not in a popup buffer.
+  (setq haskell-interactive-popup-errors nil))
 
+(after! ormolu
+  (require 'haskell
+        ;; Adds ormolu formatting for haskell on-save and with C-c r.
+        (use-package! ormolu
+                :hook (haskell-mode . ormolu-format-on-save-mode)
+                :bind
+                (:map haskell-mode-map
+                        ("C-c r" . ormolu-format-buffer)))))
+
+;;use € instead of ` for quick math char, because ` is used in haskell.
+(map! :after cdlatex
+      :map (org-cdlatex-mode-map cdlatex-mode-map)
+      "`'" nil
+      "€" #'cdlatex-math-symbol)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
