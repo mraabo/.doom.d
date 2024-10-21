@@ -55,3 +55,6 @@
 (package! svg-tag-mode)
 (package! reformatter)
 (package! ormolu)
+(package! color-theme-sanityinc-tomorrow)
+(package! copilot
+  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))

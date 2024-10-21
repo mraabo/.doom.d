@@ -5,7 +5,8 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    '("34cf3305b35e3a8132a0b1bdf2c67623bc2cb05b125f8d7d26bd51fd16d547ec" default))
- '(org-agenda-files '("~/org")))
+ '(org-agenda-files '("~/org"))
+ '(package-selected-packages '(color-theme-sanityinc-tomorrow)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
