@@ -44,9 +44,12 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
-(after! latex
+(after! auctex
   ;; Automatically breaks lines
-  (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill))
+  (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
+  ;; Ask for master file when opening new .tex file
+  (setq-default TeX-master nil))
+
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -66,6 +69,8 @@
   (setq org-download-link-format-function #'org-download-link-format-function-default))
 
 (after! org
+  ;; Change formatter for latex previews to be more readable.
+  (setq org-preview-latex-default-process 'dvisvgm)
   ;; Set every source block to display results in raw format and not as tables
   (setq org-babel-default-header-args
         (cons '(:results . "raw") (assq-delete-all :results org-babel-default-header-args)))
@@ -245,6 +250,9 @@
 (after! haskell
   ;; Display errors in the interactive buffer and not in a popup buffer.
   (setq haskell-interactive-popup-errors nil))
+
+;(after! lsp-haskell
+;  (setq lsp-haskell-formatting-provider "ormolu"))
 
 (after! ormolu
   (require 'haskell
