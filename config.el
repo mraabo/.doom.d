@@ -44,6 +44,16 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+
 (after! auctex
   ;; Automatically breaks lines
   (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
@@ -69,6 +79,15 @@
   (setq org-download-link-format-function #'org-download-link-format-function-default))
 
 (after! org
+  ;; Key binds
+   (map! :after org
+      :map org-mode-map
+      :localleader
+      :desc "Insert hline above" "b i a" #'(lambda () (interactive) (org-table-insert-hline t)))
+  ;; Auto pre-view inline images
+  (setq org-startup-with-inline-images t)
+  ;; Auto pre-view latex fragments
+  (setq org-startup-with-latex-preview t)
   ;; Change formatter for latex previews to be more readable.
   (setq org-preview-latex-default-process 'dvisvgm)
   ;; Set every source block to display results in raw format and not as tables

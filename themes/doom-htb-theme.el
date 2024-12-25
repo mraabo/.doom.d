@@ -193,6 +193,8 @@ Can be an integer to determine the exact padding."
    ((org-level-2 &override) :foreground spacegreen)
    ((org-level-3 &override) :foreground blue)
    ((org-level-4 &override) :foreground green)
+   ;; latex
+   ((font-latex-math-face &override) :foreground acidgreen)
    ;;;; solaire-mode
    (solaire-mode-line-face
     :inherit 'mode-line
