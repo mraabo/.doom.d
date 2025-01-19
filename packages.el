@@ -49,13 +49,17 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
 
+; Org extensions
 (package! org-appear)
 (package! org-superstar)
 (package! org-download)
-(package! svg-tag-mode)
-(package! reformatter)
-(package! ormolu)
-(package! color-theme-sanityinc-tomorrow)
+(unpin! org-roam)
+(package! org-roam-ui)
+
+(package! svg-tag-mode) ; renders texts as images
+(package! reformatter) ; code formatter
+(package! ormolu) ; Haskell formatter
+(package! color-theme-sanityinc-tomorrow) ; color theme
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
 (package! tramp)
