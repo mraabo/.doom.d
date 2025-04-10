@@ -63,3 +63,6 @@
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
 (package! tramp)
+
+(package! platformio-mode) ; Embedded programming
+(package! projectile) ; Managing files in projects + dependency for platformio-mode
